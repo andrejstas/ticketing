@@ -1,0 +1,30 @@
+apiVersion: app/v1
+kind: Deployment
+metadata:
+  name: auth-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth # this selector will tell the deployment how to find all the finds that it is going to create
+  template:
+    metadata:
+      app: auth # this is the same name as the one above
+    spec:
+      containers:
+        - name: auth
+          image: andrejstas/auth
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-srv
+spec:
+  type: ClusterIP # default
+  selector:
+    app: auth
+  ports:
+    - name: auth
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
