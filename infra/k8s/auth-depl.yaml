@@ -1,4 +1,4 @@
-apiVersion: app/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: auth-depl
@@ -9,7 +9,8 @@ spec:
       app: auth # this selector will tell the deployment how to find all the finds that it is going to create
   template:
     metadata:
-      app: auth # this is the same name as the one above
+      labels:
+        app: auth # this is the same name as the one above
     spec:
       containers:
         - name: auth
