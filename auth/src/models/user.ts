@@ -14,10 +14,7 @@ interface UserModel extends Model<UserDoc> {
 }
 
 // An interface that describes the properties that a User Document has
-interface UserDoc extends Document {
-  email: string;
-  password: string;
-}
+interface UserDoc extends Document, UserAttrs {}
 
 const userSchema = new Schema({
   email: {
