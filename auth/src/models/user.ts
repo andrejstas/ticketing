@@ -17,16 +17,29 @@ interface UserModel extends Model<UserDoc> {
 // An interface that describes the properties that a User Document has
 interface UserDoc extends Document, UserAttrs {}
 
-const userSchema = new Schema({
-  email: {
-    type: String,
-    required: true,
+const userSchema = new Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-});
+  {
+    // This would be more view related responsibility - view level logic. Temporarily here.
+    toJSON: {
+      transform(doc, ret) {
+        delete ret.password;
+        ret.id = ret._id;
+        delete ret._id;
+      },
+      versionKey: false,
+    },
+  }
+);
 
 userSchema.pre("save", async function (done) {
   if (this.isModified("password")) {
