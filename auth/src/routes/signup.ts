@@ -40,7 +40,7 @@ router.post(
         id: user.id,
         email: user.email,
       },
-      "soon_to_be_added"
+      process.env.JWT_KEY!
     );
 
     // Store it on session object
